@@ -7,8 +7,8 @@
 # server.
 # 
  backend default {
-     .host = "<%= scope.lookupvar('varnish::params::backendhost') %>";
-     .port = "<%= scope.lookupvar('varnish::params::backendport') %>";
+     .host = "<%= scope.lookupvar('varnish::backendhost') %>";
+     .port = "<%= scope.lookupvar('varnish::backendport') %>";
  }
 # 
 # Below is a commented-out copy of the default VCL logic.  If you
