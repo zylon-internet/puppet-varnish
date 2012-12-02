@@ -7,12 +7,12 @@
 #
 
 # Maximum number of open files (for ulimit -n)
-NFILES=<%= scope.lookupvar('varnish::params::nfiles') %>
+NFILES=<%= scope.lookupvar('varnish::nfiles') %>
 
 # Maximum locked memory size (for ulimit -l)
 # Used for locking the shared memory log in memory.  If you increase log size,
 # you need to increase this number as well
-MEMLOCK=<%= scope.lookupvar('varnish::params::memlock') %>
+MEMLOCK=<%= scope.lookupvar('varnish::memlock') %>
 
 # Default varnish instance name is the local nodename.  Can be overridden with
 # the -n switch, to have more instances on a single server.
@@ -39,11 +39,11 @@ INSTANCE=$(uname -n)
 # one content server selected by the vcl file, based on the request.  Use a 1GB
 # fixed-size cache file.
 #
-DAEMON_OPTS="-a :<%= scope.lookupvar('varnish::params::port') %> \
+DAEMON_OPTS="-a :<%= scope.lookupvar('varnish::port') %> \
              -T localhost:6082 \
-	     -f <%= scope.lookupvar('varnish::params::configfile') %> \
-	     -S <%= scope.lookupvar('varnish::params::configdir') %>/secret \
-	     -s file,<%= scope.lookupvar('varnish::params::datadir') %>/$INSTANCE/varnish_storage.bin,1G"
+	     -f <%= scope.lookupvar('varnish::config_file') %> \
+	     -S <%= scope.lookupvar('varnish::config_dir') %>/secret \
+	     -s file,<%= scope.lookupvar('varnish::data_dir') %>/$INSTANCE/varnish_storage.bin,1G"
 
 
 ## Alternative 3, Advanced configuration

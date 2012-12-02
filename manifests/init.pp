@@ -27,7 +27,7 @@
 # [*source_dir_purge*]
 #   If set to true (default false) the existing configuration directory is
 #   mirrored with the content retrieved from source_dir
-#   (source => $source_dir , recurse => true , purge => true)
+#   (source => $source_dir , recurse => true , purge => true, force => true)
 #   Can be defined also by the (top scope) variable $varnish_source_dir_purge
 #
 # [*template*]
@@ -205,6 +205,10 @@
 #   Alessandro Franceschi <al@lab42.it/>
 #
 class varnish (
+  $nfiles              = params_lookup( 'nfiles' ),
+  $memlock             = params_lookup( 'memlock' ),
+  $backendhost         = params_lookup( 'backendhost' ),
+  $backendport         = params_lookup( 'backendport' ),
   $my_class            = params_lookup( 'my_class' ),
   $source              = params_lookup( 'source' ),
   $source_dir          = params_lookup( 'source_dir' ),

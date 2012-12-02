@@ -14,6 +14,28 @@
 #
 class varnish::params {
 
+  ### Module specific parameters
+
+  # Maximum number of open files (for ulimit -n)
+  $nfiles = $::operatingsystem ? {
+    default => "131072",
+  }
+
+  # Maximum locked memory size (for ulimit -l)
+  $memlock = $::operatingsystem ? {
+    default => "82000",
+  }
+
+  # Backend host
+  $backendhost = $::operatingsystem ? {
+    default => "127.0.0.1",
+  }
+
+  # Backend port
+  $backendport = $::operatingsystem ? {
+    default => "8080",
+  }
+ 
   ### Application related parameters
 
   $package = $::operatingsystem ? {
@@ -29,7 +51,7 @@ class varnish::params {
   }
 
   $process = $::operatingsystem ? {
-    default => 'varnish',
+    default => 'varnishd',
   }
 
   $process_args = $::operatingsystem ? {
@@ -45,7 +67,7 @@ class varnish::params {
   }
 
   $config_file = $::operatingsystem ? {
-    default => '/etc/varnish/varnish.conf',
+    default => '/etc/varnish/default.vcl',
   }
 
   $config_file_mode = $::operatingsystem ? {
@@ -81,7 +103,7 @@ class varnish::params {
     default => '/var/log/varnish/varnish.log',
   }
 
-  $port = '42'
+  $port = '80'
   $protocol = 'tcp'
 
   # General Settings
@@ -89,7 +111,7 @@ class varnish::params {
   $source = ''
   $source_dir = ''
   $source_dir_purge = false
-  $template = ''
+  $template = 'varnish/default.vcl.erb'
   $options = ''
   $service_autorestart = true
   $version = 'present'
