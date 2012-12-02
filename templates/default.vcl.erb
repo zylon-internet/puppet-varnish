@@ -2,7 +2,7 @@
 #
 ### Served by:        '<%= scope.lookupvar('::servername') %>'
 ### Module:           '<%= scope.to_hash['module_name'] %>'
-### Template source:  'MODULES<%= template_source.gsub(Regexp.new("^#{Puppet::Node::Environment.current[:modulepath].gsub(':','|')}"),"") %>'
+### Template source:  'modules<%= template_source.gsub(Regexp.new("^#{Puppet::Node::Environment.current[:modulepath].gsub(':','|')}"),"") %>'
 
 # This is a basic VCL configuration file for varnish.  See the vcl(7)
 # man page for details on VCL syntax and semantics.
