@@ -100,7 +100,7 @@ class varnish::params {
   }
 
   $data_dir = $::operatingsystem ? {
-    default => '/etc/varnish',
+    default => '/var/lib/varnish',
   }
 
   $log_dir = $::operatingsystem ? {
