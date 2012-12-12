@@ -392,6 +392,19 @@ class varnish (
     audit   => $varnish::manage_audit,
   }
 
+  file { 'varnish.init':
+    ensure  => $varnish::manage_file,
+    path    => $varnish::config_file_init,
+    mode    => $varnish::config_file_mode,
+    owner   => $varnish::config_file_owner,
+    group   => $varnish::config_file_group,
+    require => Package[$varnish::package],
+    notify  => $varnish::manage_service_autorestart,
+    content => template('varnish/varnish.erb'),
+    replace => $varnish::manage_file_replace,
+    audit   => $varnish::manage_audit,
+  }
+
   # The whole varnish configuration directory can be recursively overriden
   if $varnish::source_dir {
     file { 'varnish.dir':
