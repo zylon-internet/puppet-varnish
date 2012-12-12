@@ -5,6 +5,32 @@
 #
 # == Parameters
 #
+# Module specific parameters
+#
+# [*admin_listen_address*]
+#   Telnet admin interface listen address
+#   default: 127.0.0.1
+#
+# [*admin_listen_port*]
+#   Telnet admin interface listen port
+#   default: 6082
+#
+# [*min_threads*]
+#   The minimum number of worker threads to start
+#   default: 1
+#
+# [*max_threads*]
+#   The maximum number of worker threads to start
+#   default: 1000
+#
+# [*thread_timeout*]
+#   Idle timeout for worker threads
+#   default: 120
+#
+# [*ttl*]
+#   Default TTL used when the backend does not specify one
+#   default: 120
+#
 # Standard class parameters
 # Define the general class behaviour and customizations
 #
@@ -209,6 +235,12 @@ class varnish (
   $memlock             = params_lookup( 'memlock' ),
   $backendhost         = params_lookup( 'backendhost' ),
   $backendport         = params_lookup( 'backendport' ),
+  $admin_listen_address= params_lookup( 'admin_listen_address' ),
+  $admin_listen_port   = params_lookup( 'admin_listen_port'),
+  $ttl                 = params_lookup( 'ttl' ),
+  $min_threads         = params_lookup( 'min_threads' ),
+  $max_threads         = params_lookup( 'max_threads' ),
+  $thread_timeout      = params_lookup( 'thread_timeout' ),
   $my_class            = params_lookup( 'my_class' ),
   $source              = params_lookup( 'source' ),
   $source_dir          = params_lookup( 'source_dir' ),

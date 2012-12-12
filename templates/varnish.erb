@@ -22,34 +22,6 @@ MEMLOCK=<%= scope.lookupvar('varnish::memlock') %>
 # the -n switch, to have more instances on a single server.
 INSTANCE=$(uname -n)
 
-# This file contains 4 alternatives, please use only one.
-
-## Alternative 1, Minimal configuration, no VCL
-#
-# Listen on port 6081, administration on localhost:6082, and forward to
-# content server on localhost:8080.  Use a 1GB fixed-size cache file.
-#
-# DAEMON_OPTS="-a :6081 \
-#              -T localhost:6082 \
-# 	     -b localhost:8080 \
-# 	     -u varnish -g varnish \
-#            -S /etc/varnish/secret \
-# 	     -s file,/var/lib/varnish/$INSTANCE/varnish_storage.bin,1G"
-
-
-## Alternative 2, Configuration with VCL
-#
-# Listen on port 6081, administration on localhost:6082, and forward to
-# one content server selected by the vcl file, based on the request.  Use a 1GB
-# fixed-size cache file.
-#
-DAEMON_OPTS="-a :<%= scope.lookupvar('varnish::port') %> \
-             -T localhost:6082 \
-	     -f <%= scope.lookupvar('varnish::config_file') %> \
-	     -S <%= scope.lookupvar('varnish::config_dir') %>/secret \
-	     -s file,<%= scope.lookupvar('varnish::data_dir') %>/$INSTANCE/varnish_storage.bin,1G"
-
-
 ## Alternative 3, Advanced configuration
 #
 # See varnishd(1) for more information.
@@ -103,7 +75,11 @@ DAEMON_OPTS="-a :<%= scope.lookupvar('varnish::port') %> \
 #              -s ${VARNISH_STORAGE}"
 #
 
+DAEMON_OPTS="-a :<%= scope.lookupvar('varnish::port') %> \
+	     -f <%= scope.lookupvar('varnish::config_file') %> \
+             -T <%= scope.lookupvar('varnish::admin_listen_address')-%>:<%= scope.lookupvar('varnish::admin_listen_port') %>
+             -t <%= scope.lookupvar('varnish::ttl') %>
+             -w <%= scope.lookupvar('varnish::min_threads')-%>,<%= scope.lookupvar('varnish::max_threads')-%>,<%= scope.lookupvar('varnish::thread_timeout') %>
+	     -S <%= scope.lookupvar('varnish::config_dir') %>/secret \
+	     -s file,<%= scope.lookupvar('varnish::data_dir') %>/$INSTANCE/varnish_storage.bin,1G"
 
-## Alternative 4, Do It Yourself
-#
-# DAEMON_OPTS=""

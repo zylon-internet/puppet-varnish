@@ -35,6 +35,14 @@ class varnish::params {
   $backendport = $::operatingsystem ? {
     default => "8080",
   }
+
+  # Defaults taken from /etc/default/varnish on Debian Squeeze
+  $admin_listen_address = "localhost"
+  $admin_listen_port    = 6081
+  $ttl                  = 120
+  $min_threads          = 1
+  $max_threads          = 1000
+  $thread_timeout       = 120
  
   ### Application related parameters
 
