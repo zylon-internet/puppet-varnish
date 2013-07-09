@@ -80,9 +80,9 @@ INSTANCE=$(uname -n)
 
 DAEMON_OPTS="-a :<%= scope.lookupvar('varnish::port') %> \
 	     -f <%= scope.lookupvar('varnish::config_file') %> \
-             -T <%= scope.lookupvar('varnish::admin_listen_address')-%>:<%= scope.lookupvar('varnish::admin_listen_port') %>
-             -t <%= scope.lookupvar('varnish::ttl') %>
-             -w <%= scope.lookupvar('varnish::min_threads')-%>,<%= scope.lookupvar('varnish::max_threads')-%>,<%= scope.lookupvar('varnish::thread_timeout') %>
+             -T <%= scope.lookupvar('varnish::admin_listen_address')-%>:<%= scope.lookupvar('varnish::admin_listen_port') %> \
+             -t <%= scope.lookupvar('varnish::ttl') %> \
+             -w <%= scope.lookupvar('varnish::min_threads')-%>,<%= scope.lookupvar('varnish::max_threads')-%>,<%= scope.lookupvar('varnish::thread_timeout') %> \
 	     -S <%= scope.lookupvar('varnish::config_dir') %>/secret \
 	     -s file,<%= scope.lookupvar('varnish::data_dir') %>/$INSTANCE/varnish_storage.bin,1G"
 
